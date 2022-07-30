@@ -41,7 +41,7 @@ func TestToDOCLI(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	cmdPath := filepath.Join(dir, fileName)
+	cmdPath := filepath.Join(dir, binName)
 	t.Run("AddNewTask", func(t *testing.T) {
 		cmd := exec.Command(cmdPath, strings.Split(task, " ")...)
 		if err := cmd.Run(); err != nil {
