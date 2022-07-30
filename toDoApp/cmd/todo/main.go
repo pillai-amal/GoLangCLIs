@@ -10,12 +10,12 @@ import (
 
 const toDoFileName = ".todo.json"
 
-flag.Usage = func () {
-    fmt.Fprintf(flag.CommandLine.Output(), "%s tool Developed by AM Pillai @ github.com/pillai_amal", os.Args[0])
-    fmt.Fprintf(flag.CommandLine.Output, "contact @ pillai_amal@hotmail.com")
-    fmt.Fprintf(flag.CommandLine.Output(), "Usage Deatils")
-    flag.PrintDefaults()
-}
+// flag.Usage = func () {
+//     fmt.Fprintf(flag.CommandLine.Output(), "%s tool Developed by AM Pillai @ github.com/pillai_amal", os.Args[0])
+//     fmt.Fprintf(flag.CommandLine.Output, "contact @ pillai_amal@hotmail.com")
+//     fmt.Fprintf(flag.CommandLine.Output(), "Usage Deatils")
+//     flag.PrintDefaults()
+// }
 
 func main() {
     task := flag.String("task", "", "Task to be included in ToDoList")
