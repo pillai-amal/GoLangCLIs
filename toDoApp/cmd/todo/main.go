@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
-	"strings"
+	"flag"
 
 	"github.com/toDoApp"
 )
@@ -11,6 +11,10 @@ import (
 const toDoFileName = ".todo.json"
 
 func main() {
+    task := flag.String("task", "", "Task to be included in ToDoList")
+    list := flag.Bool("list", false, "List of all tasks")
+    complete := flag.Int("complete", 0, "Item to be completed")
+    flag.Parse()
 	l := &toDoApp.List{}
 
 	if err := l.Get(toDoFileName); err != nil {
@@ -20,18 +24,29 @@ func main() {
 
 	// printing th list of items when the user has not provided any arguments
 	switch {
-	case len(os.Args) == 1:
+    case *list:
 		for _, item := range *l {
-			fmt.Println(item.Task)
+            if !item.Done {
+			    fmt.Println(item.Task)
+            }
 		}
-
-	default:
-		item := strings.Join(os.Args[1:], " ")
-		l.Add(item)
-
-		if err := l.Save(toDoFileName); err != nil {
+    case *complete>0:
+        if err := l.Complete(*complete); err !=nil {
+            fmt.Fprintln(os.Stderr, err)
+            os.Exit(1)
+        }
+		if err := l.Save(toDoFileName); err != nil{
+			fmt.Fprintln(os.Stderr,err)
+			os.Exit(1)
+		}
+	case *task != "":
+		l.Add(*task)
+		if err := l.Save(toDoFileName); err !=nil {
 			fmt.Fprintln(os.Stderr, err)
 			os.Exit(1)
 		}
+	default:
+		fmt.Fprintln(os.Stderr, "Invalid option provided")
+		os.Exit(1)
 	}
 }
