@@ -29,7 +29,7 @@ func (l *List) Add(task string) {
 func (l *List) Complete(i int) error {
 	ls := *l
 	if i <= 0 || i > len(ls) {
-		return fmt.Errorf("Item %d does not exist", i)
+		return fmt.Errorf("item %d does not exist", i)
 	}
 
 	ls[i-1].Done = true
@@ -41,9 +41,9 @@ func (l *List) Complete(i int) error {
 func (l *List) Delete(i int) error {
 	ls := *l
 	if i <= 0 || i > len(ls) {
-		fmt.Errorf("Item %d does not exist", i)
+		fmt.Errorf(" Item %d does not exist", i)
 	}
-	*l = append(ls[i:i-1], ls[i:]...)
+	*l = append(ls[:i-1], ls[i:]...)
 	return nil
 }
 
